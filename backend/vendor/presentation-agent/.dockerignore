@@ -1,0 +1,6 @@
+__pycache__
+**/__pycache__
+**/test_*.py
+*.md
+upstream.json
+.DS_Store

@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {recoverSlideWithWarnings} from '../src/slide-fallback.js';
+import {qualityWarnings,uniqueWarnings} from '../src/quality-warnings.js';
+import {validateSandboxArtifacts} from '../src/sandbox-protocol.js';
+import {writeJson} from '../src/store.js';
+test('warnings use human slide ordinals and deduplicate diagnostics',()=>{
+ const list=qualityWarnings([{slide:2,key:'x',reason:'unsupported_number'}]);
+ assert.equal(list[0].slide,3);assert.match(list[0].message,/числа/);assert.equal(uniqueWarnings([...list,...list]).length,1);
+ assert.equal(qualityWarnings([{slide:0,reason:'overflow'}],8)[0].slide,8);
+});
+test('PPTX with warnings needs actual artifacts but can omit failed PDF',()=>{
+ const result={issues:[{reason:'overflow'}],pptxWritten:true,pdfAvailable:false,fieldChanges:[]};
+ const files=['presentation.pptx','package-cleanup.json','render-quality.json','field-changes.json'];
+ assert.doesNotThrow(()=>validateSandboxArtifacts('export',result,files,1));
+ assert.throws(()=>validateSandboxArtifacts('export',result,files.slice(1),1));
+ assert.throws(()=>validateSandboxArtifacts('export',{...result,pdfAvailable:true},files,1));
+});
+test('fallback preserves actual generated text with warnings; corrupt proposals retain original page',async t=>{
+ const output=await mkdtemp(join(tmpdir(),'nerpa-warning-'));t.after(()=>rm(output,{recursive:true,force:true}));
+ const layout={id:'arbitrary',slots:[{key:'title',text:'Source heading'}],charts:[]};
+ await writeJson(join(output,'analysis.json'),{layouts:[layout]});
+ const data={fields:{title:{text:'Generated heading',evidence:[]}},charts:{}};
+ await writeJson(join(output,'copy-0.json'),{data,issues:[{reason:'unsupported_number',key:'title'}]});
+ const input={output,assembled:output,index:0,layout,title:'New subject',issues:[{reason:'repair_unavailable'}],signal:new AbortController().signal};
+ const accepted=await recoverSlideWithWarnings({...input,native:async()=>({issues:[{reason:'overflow',key:'title'}]})});
+ assert.equal(accepted.slide.native.fields.title,'Generated heading');
+ assert.ok(accepted.notice.warnings.some(w=>w.reason==='unsupported_number'));
+ const original=await recoverSlideWithWarnings({...input,native:async()=>{throw new Error('invalid structure');}});
+ assert.equal(original.slide.native.fields.title,'Source heading');assert.equal((original.slide.native as any).preserveSource,true);
+ assert.ok(original.notice.warnings.some(w=>w.reason==='source_slide_preserved'));
+ await writeJson(join(output,'copy-0.json'),{data:original.data,rebuildNative:original.slide,sourceFallback:true});
+ const replay=await recoverSlideWithWarnings({...input,previous:original.data,native:async()=>({issues:[]})});
+ assert.equal((replay.slide.native as any).preserveSource,true);
+ assert.ok(replay.notice.warnings.some(w=>w.reason==='source_slide_preserved'));
+ const controller=new AbortController();controller.abort();
+ await assert.rejects(recoverSlideWithWarnings({...input,signal:controller.signal,native:async()=>({})}),{name:'AbortError'});
+});

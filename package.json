@@ -1,0 +1,16 @@
+{
+  "name": "nerpa-template-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "setup": "npm --prefix backend ci && npm --prefix frontend ci && npm run sandbox",
+    "sandbox": "docker build -t nerpa-test-pptx:1 backend/vendor/presentation-agent",
+    "sandbox:local": "docker build -f backend/vendor/presentation-agent/Dockerfile.local -t nerpa-test-pptx:1 backend/vendor/presentation-agent",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "test": "npm --prefix backend test"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.8"
+  }
+}

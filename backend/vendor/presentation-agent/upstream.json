@@ -1,0 +1,156 @@
+{
+  "source": "nerpa",
+  "imported": "2026-09-11T03:54:12.265Z",
+  "localPatches": [
+    {
+      "path": "app/presentation/parser/objects.py",
+      "originalSha256": "f286452725f314947235475dbcd3642c7b50bffb75150a08ebf5016bd09faf55",
+      "sha256": "bead6113897671a0ab96e2fc856e0c92e7600e437a46316c94c24e120fd3ffd5",
+      "reason": "OOXML placeholder defaults and own non-visual placeholder identity; regression runtime/test_placeholder_inheritance.py"
+    },
+    {
+      "path": "app/presentation/parser/scenes.py",
+      "originalSha256": "fe8ffa96636ff955f01913cc2f0655a51c3fdc0825c3102a9597669e2d25b33a",
+      "sha256": "c9306e274e1d0fa0fa97e59123ea6e12a14c38de3b87739268b60ff462d0d133",
+      "reason": "Slide-to-layout idx matching across picture/shape kinds and layout-to-master semantic families"
+    }
+  ],
+  "files": [
+    {
+      "path": "app/presentation/parser/__init__.py",
+      "sha256": "aaae152b4618162d0fb71271eeb970bd81db1a63b16c4175ef896fc99e51f8a8"
+    },
+    {
+      "path": "app/presentation/parser/agent.py",
+      "sha256": "0123be432a26e991268212074a5a20e2bcad5dedfae948b621aabab8cdafcc66"
+    },
+    {
+      "path": "app/presentation/parser/archive.py",
+      "sha256": "0e74db3165a21f73191dd68ec74d0332a4186c9173998994836cd5f25e80c0ab"
+    },
+    {
+      "path": "app/presentation/parser/cli.py",
+      "sha256": "e65aa67658ea918d395b67dba1216dcf83d25e42337dc3befa304291f8d1a72b"
+    },
+    {
+      "path": "app/presentation/parser/colors.py",
+      "sha256": "65f5db4054fad8e15863a2aeaea8b35401fdb94009688ebbdc1a2f455e6e8d33"
+    },
+    {
+      "path": "app/presentation/parser/constants.py",
+      "sha256": "37706434b9e45a7ad83b04910ec98b3314bf650c45b0c7e67a24b3e5e82fd580"
+    },
+    {
+      "path": "app/presentation/parser/evidence.py",
+      "sha256": "39be1c5d87d0d5ced93519ea185883cae2e7ab59c0c8f3024932ae84e619f8bb"
+    },
+    {
+      "path": "app/presentation/parser/geometry.py",
+      "sha256": "5553c621330e18af93f66ea75eed06f78f656148dc0334251d00b7768b9d6bec"
+    },
+    {
+      "path": "app/presentation/parser/ids.py",
+      "sha256": "61abc60e8e00b8f9cac7ec3ffe4f1ce8fd329d732df6f0292a815dc9b9bfed1d"
+    },
+    {
+      "path": "app/presentation/parser/objects.py",
+      "sha256": "f286452725f314947235475dbcd3642c7b50bffb75150a08ebf5016bd09faf55"
+    },
+    {
+      "path": "app/presentation/parser/relationships.py",
+      "sha256": "bede345229e4c3f0be8399e3aec04bd0553d58eaef129839b130437977fcde55"
+    },
+    {
+      "path": "app/presentation/parser/rich_text.py",
+      "sha256": "59ba9010136c0a5b7eb60228127b0c649b14cb8439bf5546ca0969fe2c155410"
+    },
+    {
+      "path": "app/presentation/parser/scenes.py",
+      "sha256": "fe8ffa96636ff955f01913cc2f0655a51c3fdc0825c3102a9597669e2d25b33a"
+    },
+    {
+      "path": "app/presentation/parser/storage.py",
+      "sha256": "84035e41b7ff64ea3a34a7b9a8fb3b31284d323f8e7bf5087815be4191484d49"
+    },
+    {
+      "path": "app/presentation/parser/tables_charts.py",
+      "sha256": "ae4c6f97198d9d8b42567070e6dc498f1fce88390ac4dfb5a341677aeec48222"
+    },
+    {
+      "path": "app/presentation/parser/xml_utils.py",
+      "sha256": "e850ea3cb8047044e01b3ffd6111919c126392b1a70b0d31fdbaaa05450cccf5"
+    },
+    {
+      "path": "app/presentation/template/__init__.py",
+      "sha256": "444ed32fd8652444daa50dce9ad4cb2baf684a244a1d3a938e1e1c57857a2442"
+    },
+    {
+      "path": "app/presentation/template/analyzer.py",
+      "sha256": "d9d38ccbb3d5aff17e8f3d8d6f52a8fde3cdcb90b8572034bb3f503781480247"
+    },
+    {
+      "path": "app/presentation/template/confidence.py",
+      "sha256": "0d6f24b63219dd9239ee43fd04e91c37c5345c860921a26fd8f29fbfab0b284f"
+    },
+    {
+      "path": "app/presentation/template/edit_scope.py",
+      "sha256": "24fd8651fae2547f1bd3cf92c1500f22f6093c8d8adca583b36eee412c29b54c"
+    },
+    {
+      "path": "app/presentation/template/features.py",
+      "sha256": "74d58d29639f7eb39085515f5a061b0b51915dccf34aa0f9116cd6fb84532405"
+    },
+    {
+      "path": "app/presentation/template/models.py",
+      "sha256": "cb9ffe9e54badb2a4f6b007a8118391de357d167f7c91c73e70fb2a257e34f06"
+    },
+    {
+      "path": "app/presentation/template/observations.py",
+      "sha256": "7a4d259e1a484db9efb2aa97c589d0357908032fefb3b2a6e47c15a19255d878"
+    },
+    {
+      "path": "app/presentation/template/semantic.py",
+      "sha256": "753f30309f3582d64493c2151f74893583a794f6fef06d87c1c15182bfe1dd16"
+    },
+    {
+      "path": "app/presentation/template/semantics.py",
+      "sha256": "df55575f119fde6e9d56adbc5e17acc6c41f7e059f48ac11857451c81398c1bc"
+    },
+    {
+      "path": "app/presentation/template/work.py",
+      "sha256": "f5fecb0c80abd71fb6792f8c33442c6fba225834f4950d0bb6f7dd6f5e3fb35e"
+    },
+    {
+      "path": "app/text/__init__.py",
+      "sha256": "b67fa610413af0e563dcaf922bd50d0c734cc6042338c7565eb92d830635bc97"
+    },
+    {
+      "path": "app/text/measurement.py",
+      "sha256": "ba7daee6bf2fe3101da7d9977aa6a4ac1ab6e7460598a4a3947958af6af3a6c4"
+    },
+    {
+      "path": "app/text/native.py",
+      "sha256": "5292724773aa0699e6ea1c31f133f69be0c4221e432b0fb60cc1e665d37686fa"
+    },
+    {
+      "path": "app/text/replacement.py",
+      "sha256": "d4feb52496a6f68f4a73ddb1fb4c2f0779d08eb0ccb178c865bfd17b3e51bd64"
+    },
+    {
+      "path": "app/presentation/models.py",
+      "sha256": "9edef2eee1c81fb399ffc50879a2435a6e3fe8a6dcfe14bb109b38d91f186b0e"
+    },
+    {
+      "path": "app/llm/usage.py",
+      "sha256": "46af90b67044031b09cb5d5100aae853676424df29a5c27c240ea71220316017"
+    },
+    {
+      "path": "app/llm/structured_outputs.py",
+      "sha256": "1e56e51b626033ebd7cf14fd3046bddb8cc3092b2557a3f850e41761e55b495d"
+    },
+    {
+      "path": "app/runtime/cancellation.py",
+      "sha256": "01d9ef2064f79e0fa1fb23c441520373abff45ffa9ecea5132cebb066555bb70"
+    }
+  ]
+}
