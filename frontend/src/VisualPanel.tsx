@@ -48,8 +48,8 @@ function ChoiceEditor({
     instruction: choice.instruction,
     quality: choice.quality,
   });
-  const dirty = Object.entries(draft).some(
-    ([k, v]) => (choice as any)[k] !== v,
+  const dirty = (Object.keys(draft) as Array<keyof typeof draft>).some(
+    (key) => choice[key] !== draft[key],
   );
   return (
     <div className="visual-editor">
@@ -86,7 +86,7 @@ function ChoiceEditor({
                 }
               >
                 <option value="keep">Оставить оригинал</option>
-                <option value="generate">GPT Image 2</option>
+                <option value="generate" disabled>FLUX.2 [klein] — ожидает локальный сервер</option>
                 <option value="upload" disabled={choice.mode !== "upload"}>
                   Мой файл
                 </option>
@@ -205,8 +205,8 @@ function ChoiceEditor({
             </small>
           )}
           <small>
-            PNG, JPEG или WebP до 24 МБ. Загрузка бесплатна. Новый AI-вариант
-            будет оплачен при следующей сборке.
+            PNG, JPEG или WebP до 24 МБ. Локальная генерация FLUX.2 [klein]
+            пока не подключена.
           </small>
         </>
       )}
@@ -257,7 +257,7 @@ export function VisualPanel({
             оформлению. Иконки и декор сохраняются.
           </p>
         </div>
-        <span className="visual-model">GPT Image 2</span>
+        <span className="visual-model">FLUX.2 [klein] · не подключена</span>
       </div>
       {!plan ? (
         <>

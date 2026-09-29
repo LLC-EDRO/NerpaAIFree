@@ -9,12 +9,20 @@ import { engineContext } from "./runtime-context.js";
 import { activeSelection, connectionFor } from "./model-settings.js";
 export const modelInfo = () => {
   const selection = activeSelection();
+  let configured = false;
+  try {
+    connectionFor(selection);
+    configured = true;
+  } catch {
+    // Selection is only a target until the installed model is confirmed.
+  }
   return {
     provider: selection.provider,
-    textModel: selection.provider === "openwebui" ? selection.textModel : "demo:qwen3:14b",
-    visionModel: selection.provider === "openwebui" ? selection.visionModel : "demo:qwen3-vl:8b",
-    textConfigured: selection.provider === "openwebui" && !!selection.textModel,
-    visionConfigured: selection.provider === "openwebui" && !!selection.visionModel,
+    textModel: selection.textModel,
+    visionModel: selection.visionModel,
+    textConfigured: configured,
+    visionConfigured: configured,
+    imageModel: process.env.LOCAL_IMAGE_MODEL || "FLUX.2-klein-4B",
     imageConfigured: false,
   };
 };
@@ -37,7 +45,7 @@ export async function llmJson<T>(input: {
   const selection = activeSelection();
   const connection = connectionFor(selection);
   const model = vision || input.useVisionModel ? selection.visionModel : selection.textModel;
-  const endpoint = connection.baseUrl + "/api/chat/completions";
+  const endpoint = connection.baseUrl + "/v1/chat/completions";
   const images = await Promise.all(
     (input.images || []).map(async (file) => ({
       type: "image_url",
@@ -123,7 +131,7 @@ export async function llmJson<T>(input: {
       model,
       responseModel: result.model,
       serviceTier: result.service_tier,
-      provider: "openwebui",
+      provider: "ollama",
       vision,
       attempt,
       durationMs: Date.now() - started,

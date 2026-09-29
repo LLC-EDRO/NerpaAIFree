@@ -4,7 +4,6 @@ import {
   receiptCost,
   emptyCost,
   addCost,
-  pricing,
   type CostCounts,
 } from "./usage-cost.js";
 
@@ -99,7 +98,7 @@ export function summarizeUsage(entries: Entry[]) {
   return {
     total,
     cost,
-    pricing,
+    pricing: undefined,
     stages: rows.filter((r) => r.id !== "other" || r.requests > 0),
   };
 }
